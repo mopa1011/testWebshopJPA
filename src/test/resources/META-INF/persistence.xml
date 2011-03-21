@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0">
+
+	<persistence-unit name="swe1Persistence"
+		              transaction-type="RESOURCE_LOCAL">     <!-- kein Appserver wie z.B. JBoss -->
+
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+
+		<!-- Persistenzfaehige Klassen aufzaehlen, da kein Appserver wie z.B. JBoss -->
+		<class>de.webshop.artikelverwaltung.domain.Artikel</class>
+		<class>de.webshop.artikelverwaltung.domain.Kategorie</class>
+		<class>de.webshop.artikelverwaltung.domain.KategorieHasArtikel</class>
+		<class>de.webshop.artikelverwaltung.domain.Produktbewertung</class>
+		<class>de.webshop.benutzerverwaltung.domain.AbstractAdresse</class>
+		<class>de.webshop.benutzerverwaltung.domain.AbstractBenutzer</class>
+		<class>de.webshop.benutzerverwaltung.domain.Benutzer</class>
+		<class>de.webshop.benutzerverwaltung.domain.Lieferadresse</class>
+		<class>de.webshop.benutzerverwaltung.domain.Rechnungsadresse</class>
+		<class>de.webshop.benutzerverwaltung.domain.Rolle</class>
+		<class>de.webshop.benutzerverwaltung.domain.RolleHasBenutzer</class>
+		<class>de.webshop.bestellungsverwaltung.domain.Bestellposition</class>
+		<class>de.webshop.bestellungsverwaltung.domain.Bestellung</class>
+		<class>de.webshop.lagerverwaltung.domain.Lager</class>
+		
+		
+		<properties>
+			<!-- Properties fuer DB-Verbindung -->
+			<!-- PostgreSQL -->
+			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql:jbossdb"/>
+			<property name="javax.persistence.jdbc.user" value="webshop"/>
+			<property name="javax.persistence.jdbc.password" value="webshop"/>
+			
+			<!-- MySQL -->
+			<!--
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql:///swe1db"/>
+			<property name="javax.persistence.jdbc.user" value="swe1"/>
+			<property name="javax.persistence.jdbc.password" value="swe"/>
+			-->
+
+			<!-- HSQLDB -->
+			<!--
+			<property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:mem:swe1db"/>
+			<property name="javax.persistence.jdbc.user" value="sa"/>
+			<property name="javax.persistence.jdbc.password" value=""/>
+			-->
+		
+			<!-- Keine proprietaeren Erweiterungen von HQL nutzen -->
+			<property name="hibernate.query.jpaql_strict_compliance" value="true"/>
+
+			<!-- In der Log-Datei die SQL-Anweisungen lesbarer rausschreiben -->
+			<property name="hibernate.format_sql" value="true"/>
+
+			<!-- In der Log-Datei auch Kommentare zu den generierten SQL-Anweisungen hinzufuegen -->
+			<property name="hibernate.use_sql_comments" value="true"/>
+			
+			<property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
+			<property name="hibernate.connection.pool_size" value="1"/>
+			
+			<!-- Nur notwendig, falls HSQLDB als In-Memory Datenbank genutzt wird
+			<property name="hibernate.default_schema" value="SWE1"/>
+			<property name="hibernate.hbm2ddl.auto" value="create"/>
+			-->
+		</properties>
+	</persistence-unit>
+</persistence>

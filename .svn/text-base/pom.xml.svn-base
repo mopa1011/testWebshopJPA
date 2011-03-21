@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	
+<!--
+	Aufruf:
+		mvn test   Tests durchfuehren
+-->
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>de.webshop.test</groupId>
+	<artifactId>testWebshopJPA</artifactId>
+	<packaging>jar</packaging>
+	<version>1.0.0</version>
+	<name>testWebshopJPA</name>
+	<url>http://www.iwi.hs-karlsruhe.de</url>
+	<inceptionYear>2001</inceptionYear>
+	<description>Tests f&#252;r die Entity-Klassen mit JPA</description>
+
+	<scm>
+		<!-- Wie verbinden sich Entwickler mit dem Versionierungssystem -->
+		<developerConnection>scm:svn:http://www.iwi.hs-karlsruhe.de/svn/swe1-g04/testWebshopJPA</developerConnection>
+		<!-- URL fuer Inspektion des Quellcodes via Webbrowser -->
+		<url>http://www.iwi.hs-karlsruhe.de/svn/swe1-g04/testWebshopJPA</url>
+	</scm>
+	
+	<!-- Informationen fuer die generierten Webseiten -->
+	<organization>
+		<name>Hochschule Karlsruhe, Fakult&#228;t Informatik und Wirtschaftsinformatik</name>
+		<url>http://www.iwi.hs-karlsruhe.de</url>
+	</organization>
+	<developers>
+	    <developer>
+			<id>robert.thummert</id>
+			<name>Robert Thummert</name>
+			<email>thro1011@HS-Karlsruhe.de</email>
+			<url>http://www.iwi.hs-karlsruhe.de</url>
+			<organization>Hochschule Karlsruhe</organization>
+			<organizationUrl>http://www.iwi.hs-karlsruhe.de</organizationUrl>
+			<roles>
+				<role>Superman</role>
+			</roles>
+			<timezone>+1</timezone>     <!-- relativ zu GMT -->
+		</developer>
+		<developer>
+			<id>patrick.moser</id>
+			<name>Patrick Moser</name>
+			<email>mopa1011@HS-Karlsruhe.de</email>
+			<url>http://www.iwi.hs-karlsruhe.de</url>
+			<organization>Hochschule Karlsruhe</organization>
+			<organizationUrl>http://www.iwi.hs-karlsruhe.de</organizationUrl>
+			<roles>
+				<role>Batman</role>
+			</roles>
+			<timezone>+1</timezone>     <!-- relativ zu GMT -->
+		</developer>
+		<developer>
+			<id>benjamin.scheidt</id>
+			<name>Benny Scheidt</name>
+			<email>scbe1015@HS-Karlsruhe.de</email>
+			<url>http://www.iwi.hs-karlsruhe.de</url>
+			<organization>Hochschule Karlsruhe</organization>
+			<organizationUrl>http://www.iwi.hs-karlsruhe.de</organizationUrl>
+			<roles>
+				<role>Spongebob</role>
+			</roles>
+			<timezone>+1</timezone>     <!-- relativ zu GMT -->
+		</developer>
+		<developer>
+			<id>stefan.rellmann</id>
+			<name>Stefan Rellmann</name>
+			<email>rest1012@HS-Karlsruhe.de</email>
+			<url>http://www.iwi.hs-karlsruhe.de</url>
+			<organization>Hochschule Karlsruhe</organization>
+			<organizationUrl>http://www.iwi.hs-karlsruhe.de</organizationUrl>
+			<roles>
+				<role>Spiderman</role>
+			</roles>
+			<timezone>+1</timezone>     <!-- relativ zu GMT -->
+		</developer>
+		<developer>
+			<id>stephan.sauer</id>
+			<name>Stephan Sauer</name>
+			<email>sast1011@HS-Karlsruhe.de</email>
+			<url>http://www.iwi.hs-karlsruhe.de</url>
+			<organization>Hochschule Karlsruhe</organization>
+			<organizationUrl>http://www.iwi.hs-karlsruhe.de</organizationUrl>
+			<roles>
+				<role>Hulk</role>
+			</roles>
+			<timezone>+1</timezone>     <!-- relativ zu GMT -->
+		</developer>
+	</developers>
+	
+	<!-- Wiederverwendbare Properties -->
+	<properties>
+		<!-- Aufzufuehrende Testklassen -->
+		<testklassen>**/*Test.java</testklassen>
+		
+		<!-- Klassen fuer Generierung des Metamodel gemaess JPA -->
+		<genmetamodel-klassen>**/domain/*.java</genmetamodel-klassen>
+		
+		<!-- Pfadangaben -->
+		<ear.project.name>webshop</ear.project.name>
+		<ejb.src.dir>${basedir}/../${ear.project.name}EJB/ejbModule</ejb.src.dir>
+		
+		<db.subdir>postgresql</db.subdir>
+		<!--
+		<db.subdir>mysql</db.subdir>
+		-->
+		<!--dbunit.xml.dir>${basedir}/../webshopDB/${db.subdir}/target/dbunit</dbunit.xml.dir-->
+		<dbunit.xml.dir>${basedir}/../webshopDB/target/dbunit</dbunit.xml.dir>
+		
+		<!-- Versionsnummern fuer verwendete Software -->
+		<maven.version>3.0-RC3</maven.version>
+		<java.version>1.6</java.version>
+		<hibernate-jpamodelgen.version>1.1.0.CR1</hibernate-jpamodelgen.version>
+		<jboss-javaee-6.0.version>1.0.0.Final</jboss-javaee-6.0.version>
+		<jboss-as-client.version>6.0.0.Final</jboss-as-client.version> 
+		<hibernate.version>3.5.6-Final</hibernate.version>
+		<hibernate-validator.version>4.1.0.Final</hibernate-validator.version>
+		
+		<junit.version>4.8.2</junit.version>
+		<dbunit.version>2.4.8</dbunit.version>
+		
+		<slf4j.version>1.5.6</slf4j.version>
+		
+		<postgresql-jdbc.version>9.0-801.jdbc4</postgresql-jdbc.version>
+		<mysql.driver.version>5.1.13</mysql.driver.version>
+		<hsqldb.driver.version>2.0.0</hsqldb.driver.version>
+		
+		<maven-enforcer-plugin.version>1.0-beta-1</maven-enforcer-plugin.version>
+		<maven-resources-plugin.version>2.4.3</maven-resources-plugin.version>
+		<build-helper-maven-plugin.version>1.5</build-helper-maven-plugin.version>
+		<maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
+		<maven-surefire-plugin.version>2.6</maven-surefire-plugin.version>
+		<maven-site-plugin.version>3.0-beta-2</maven-site-plugin.version>
+
+		<maven-clean-plugin.version>2.4.1</maven-clean-plugin.version>
+		<maven-deploy-plugin.version>2.5</maven-deploy-plugin.version>
+		<maven-jar-plugin.version>2.3.1</maven-jar-plugin.version>
+		<maven-install-plugin.version>2.3.1</maven-install-plugin.version>
+
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	
+	<!-- Verwendete Software in Form von .jar-Dateien: notwendig fuer Uebersetzung und zur Laufzeit -->
+	<dependencies>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-jpamodelgen</artifactId>
+			<version>${hibernate-jpamodelgen.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.jboss.spec</groupId>
+			<artifactId>jboss-javaee-6.0</artifactId>
+			<version>${jboss-javaee-6.0.version}</version>
+			<type>pom</type>
+		</dependency>
+		
+		<dependency>
+                        <groupId>org.jboss.jbossas</groupId>
+                        <artifactId>jboss-as-client</artifactId>
+                        <version>${jboss-as-client.version}</version>
+                        <type>pom</type>
+       
+                        <exclusions>
+                                <exclusion>
+                                        <groupId>com.sun.xml.ws</groupId>
+                                        <artifactId>jaxws-rt</artifactId>
+                                </exclusion>
+                                <exclusion>
+                                        <groupId>ws-commons</groupId>
+                                        <artifactId>policy</artifactId>
+                                </exclusion>
+                        </exclusions>
+        </dependency> 
+        
+        <dependency>
+                        <groupId>wscommons-policy</groupId>
+                        <artifactId>policy</artifactId>
+                        <version>1.0</version>
+                </dependency> 
+                <dependency>
+                        <groupId>com.sun.xml.ws</groupId>
+                        <artifactId>jaxws-rt</artifactId>
+                        <version>2.2.1</version>
+                </dependency> 
+		
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>${hibernate-validator.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.dbunit</groupId>
+			<artifactId>dbunit</artifactId>
+			<version>${dbunit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jul-to-slf4j</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${postgresql-jdbc.version}</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql.driver.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb-j5</artifactId>
+			<version>${hsqldb.driver.version}</version>
+		</dependency>
+	</dependencies>
+
+	<!-- Repositories, aus denen die obige Software heruntergeladen werden kann -->
+	<repositories>
+		<repository>
+			<id>jboss</id>
+			<name>JBoss Maven 2 Repository</name>
+			<url>https://repository.jboss.org/nexus/content/groups/public</url>
+		</repository>
+        
+		<repository>
+			<id>maven2-repository.dev.java.net</id>
+			<name>Java.net Maven 2 Repository</name>
+			<url>http://download.java.net/maven/2</url>
+		</repository>
+	</repositories>
+	
+	<pluginRepositories>
+		<pluginRepository>
+			<id>jboss</id>
+			<name>JBoss Maven 2 Repository</name>
+			<url>https://repository.jboss.org/nexus/content/groups/public</url>
+		</pluginRepository>
+	</pluginRepositories>
+	
+  	<build>
+  		<defaultGoal>test-compile</defaultGoal>
+  		
+  		<sourceDirectory>${ejb.src.dir}</sourceDirectory>
+  		
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>${maven-enforcer-plugin.version}</version>
+				<configuration>
+					<rules>
+						<requireJavaVersion>
+							<version>[${java.version},)</version>
+						</requireJavaVersion>
+						<requireMavenVersion>
+							<version>[${maven.version},)</version>
+						</requireMavenVersion>
+						<requirePluginVersions/>
+					</rules>
+				</configuration>
+
+				<executions>
+					<execution>
+						<id>enforce-java</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>${maven-resources-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>copy-dbunit-files</id>
+						<phase>generate-test-resources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<!-- Flat XML-Dateien fuer DbUnit aus dem DB-Projekt umkopieren in das Basisverzeichnis -->
+							<outputDirectory>${basedir}</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${dbunit.xml.dir}</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin.version}</version>
+				
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<showDeprecation>true</showDeprecation>
+					<showWarnings>true</showWarnings>
+					<encoding>UTF-8</encoding>
+				</configuration>
+				
+				<executions>
+					<!-- Generierung der Metamodel-Klassen fuer Criteria Queries -->
+					<!-- Sonstige Dateien ausschliessen, z.B. .xml oder .properties -->
+					<execution>
+						<id>generate-metamodel-for-criteria-queries</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+
+						<configuration>
+							<compilerArgument>-proc:only</compilerArgument>
+							<includes>
+								<include>${genmetamodel-klassen}</include>
+							</includes>
+						</configuration>
+					</execution>
+
+					<!-- Eigentliche Uebersetzung der Entity-Klassen aus dem Web-Projekt -->
+					<execution>
+						<id>compile-entity</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+			
+					<!-- Uebersetzung der Testklassen -->
+					<execution>
+						<id>compile-tests</id>
+						<phase>test-compile</phase>
+						<goals>
+							<goal>testCompile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Generierte Metamodel-Klassen (fuer Criteria Queries) als 2. src-Verzeichnis bereitstellen -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>${build-helper-maven-plugin.version}</version>
+				<executions>
+					<execution>
+						<phase>process-sources</phase>
+						<configuration>
+							<sources>
+								<source>${project.build.directory}/generated-sources/annotations</source>
+							</sources>
+						</configuration>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Durchfuehren bzw. Aufrufen der Tests -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven-surefire-plugin.version}</version>
+				
+				<configuration>
+					<printSummary>true</printSummary>
+					<redirectTestOutputToFile>true</redirectTestOutputToFile>
+					<trimStackTrace>false</trimStackTrace>
+					<includes>
+						<include>${testklassen}</include>
+					</includes>
+					<useFile>true</useFile>
+				</configuration>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>${maven-site-plugin.version}</version>
+				<configuration>
+					<locales>de</locales>
+					<!--outputEncoding>ISO-8859-1</outputEncoding-->
+					<outputEncoding>UTF-8</outputEncoding>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>${maven-clean-plugin.version}</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>${maven-jar-plugin.version}</version>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-install-plugin</artifactId>
+				<version>${maven-install-plugin.version}</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>${maven-deploy-plugin.version}</version>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+		</plugins>
+		
+		<!-- Die Dateien aus src\test\resources in das Verzeichnis target\test-classes kopieren, -->
+		<!-- damit sie im Classpath zur Laufzeit enthalten sind -->
+		<testResources>
+			<testResource>
+				<directory>${basedir}/src/test/resources</directory>
+				<includes>
+					<include>db.properties</include>
+					<include>log4j.properties</include>
+					<include>META-INF/persistence.xml</include>
+				</includes>
+			</testResource>
+		</testResources>
+	</build>
+</project>
